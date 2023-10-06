@@ -1,10 +1,13 @@
 :root {
   --background-color: #fff;
   --background-color-transparent: rgba(255,255,255,0.6);
+  --background-color-transparent-15: rgba(255,255,255,0.15);
+  --background-color-transparent-40: rgba(255,255,255,0.4);
+  --background-color-transparent-80: rgba(255,255,255,0.8);
   --second-background-color: #fafafa;
   --third-background-color: #f7f7f7;
   --third-background-color-transparent: rgba(241,241,241,0.6);
-  --primary-color: #928ab7;
+  --primary-color: #896fc3;
   --first-text-color: #323739;
   --second-text-color: #343a3c;
   --third-text-color: #5c6669;
@@ -12,7 +15,7 @@
   --default-text-color: #373d3f;
   --invert-text-color: #bebec6;
   --border-color: rgba(0,0,0,0.08);
-  --selection-color: #9d96be;
+  --selection-color: #957dc9;
   --shadow-color-1: rgba(0,0,0,0.08);
   --shadow-color-2: rgba(0,0,0,0.05);
   --shadow-hover-color: rgba(0,0,0,0.28);
@@ -47,10 +50,13 @@
   :root {
     --background-color: #fff;
     --background-color-transparent: rgba(255,255,255,0.6);
+    --background-color-transparent-15: rgba(255,255,255,0.15);
+    --background-color-transparent-40: rgba(255,255,255,0.4);
+    --background-color-transparent-80: rgba(255,255,255,0.8);
     --second-background-color: #fafafa;
     --third-background-color: #f7f7f7;
     --third-background-color-transparent: rgba(241,241,241,0.6);
-    --primary-color: #928ab7;
+    --primary-color: #896fc3;
     --first-text-color: #323739;
     --second-text-color: #343a3c;
     --third-text-color: #5c6669;
@@ -58,7 +64,7 @@
     --default-text-color: #373d3f;
     --invert-text-color: #bebec6;
     --border-color: rgba(0,0,0,0.08);
-    --selection-color: #9d96be;
+    --selection-color: #957dc9;
     --shadow-color-1: rgba(0,0,0,0.08);
     --shadow-color-2: rgba(0,0,0,0.05);
     --shadow-hover-color: rgba(0,0,0,0.28);
@@ -94,10 +100,13 @@
   :root {
     --background-color: #202124;
     --background-color-transparent: rgba(32,33,36,0.4);
+    --background-color-transparent-15: rgba(32,33,36,0.15);
+    --background-color-transparent-40: rgba(32,33,36,0.4);
+    --background-color-transparent-80: rgba(32,33,36,0.8);
     --second-background-color: #242529;
     --third-background-color: #292b2f;
     --third-background-color-transparent: rgba(32,33,36,0.6);
-    --primary-color: #928ab7;
+    --primary-color: #896fc3;
     --first-text-color: #d2d2d7;
     --second-text-color: #cbcbd1;
     --third-text-color: #9595a2;
@@ -105,7 +114,7 @@
     --default-text-color: #bebec6;
     --invert-text-color: #373d3f;
     --border-color: rgba(255,255,255,0.08);
-    --selection-color: #9d96be;
+    --selection-color: #957dc9;
     --shadow-color-1: rgba(255,255,255,0.08);
     --shadow-color-2: rgba(255,255,255,0.05);
     --shadow-hover-color: rgba(69,69,69,0.28);
@@ -140,10 +149,13 @@
 .light-mode {
   --background-color: #fff;
   --background-color-transparent: rgba(255,255,255,0.6);
+  --background-color-transparent-15: rgba(255,255,255,0.15);
+  --background-color-transparent-40: rgba(255,255,255,0.4);
+  --background-color-transparent-80: rgba(255,255,255,0.8);
   --second-background-color: #fafafa;
   --third-background-color: #f7f7f7;
   --third-background-color-transparent: rgba(241,241,241,0.6);
-  --primary-color: #928ab7;
+  --primary-color: #896fc3;
   --first-text-color: #323739;
   --second-text-color: #343a3c;
   --third-text-color: #5c6669;
@@ -151,7 +163,7 @@
   --default-text-color: #373d3f;
   --invert-text-color: #bebec6;
   --border-color: rgba(0,0,0,0.08);
-  --selection-color: #9d96be;
+  --selection-color: #957dc9;
   --shadow-color-1: rgba(0,0,0,0.08);
   --shadow-color-2: rgba(0,0,0,0.05);
   --shadow-hover-color: rgba(0,0,0,0.28);
@@ -185,10 +197,13 @@
 .dark-mode {
   --background-color: #202124;
   --background-color-transparent: rgba(32,33,36,0.4);
+  --background-color-transparent-15: rgba(32,33,36,0.15);
+  --background-color-transparent-40: rgba(32,33,36,0.4);
+  --background-color-transparent-80: rgba(32,33,36,0.8);
   --second-background-color: #242529;
   --third-background-color: #292b2f;
   --third-background-color-transparent: rgba(32,33,36,0.6);
-  --primary-color: #928ab7;
+  --primary-color: #896fc3;
   --first-text-color: #d2d2d7;
   --second-text-color: #cbcbd1;
   --third-text-color: #9595a2;
@@ -196,7 +211,7 @@
   --default-text-color: #bebec6;
   --invert-text-color: #373d3f;
   --border-color: rgba(255,255,255,0.08);
-  --selection-color: #9d96be;
+  --selection-color: #957dc9;
   --shadow-color-1: rgba(255,255,255,0.08);
   --shadow-color-2: rgba(255,255,255,0.05);
   --shadow-hover-color: rgba(69,69,69,0.28);
@@ -238,12 +253,12 @@
 .tag-container .tag-name i {
   color: var(--second-text-color);
 }
-@media (max-width: 780px) {
+@media (max-width: 768px) {
   .tag-container .tag-name {
     font-size: 2.7rem;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 640px) {
   .tag-container .tag-name {
     font-size: 2.4rem;
   }
