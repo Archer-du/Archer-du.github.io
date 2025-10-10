@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Archer阿澈">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://archer-du.top/2023/05/04/tech/fundamentals/cmake_tutorial/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="使用CMake管理和构建C++项目的教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMake入门教程">
+<meta property="og:url" content="http://archer-du.top/2023/05/04/Tech/Fundamentals/CMake_Tutorial/index.html">
+<meta property="og:site_name" content="Archer&#39;s Blog">
+<meta property="og:description" content="使用CMake管理和构建C++项目的教程">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-04T09:47:34.000Z">
+<meta property="article:modified_time" content="2023-05-04T09:47:34.000Z">
+<meta property="article:author" content="Archer">
+<meta property="article:tag" content="fundamentals">
+<meta property="article:tag" content="tutorial">
+<meta property="article:tag" content="cmake">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+    <meta name="theme-color" content="#896fc3">
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            CMake入门教程 -
+        
+        Archer&#39;s Blog
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"archer-du.top","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":2,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"simple","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"recommended","limit":4,"placeholder":"/images/night.jpg","skip_dirs":[]}},"colors":{"primary":"#896fc3","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/light.jpg","dark":"/images/night.jpg"},"title":"Archer","subtitle":{"text":["test,test...","你好，这里是Archer"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/Archer-du","instagram":null,"bilibili":"https://space.bilibili.com/204361096?spm_id_from=333.1007.0.0","twitter":"https://twitter.com/Archer_ache","email":"dupengche@gmail.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"Picnic On Monday","artist":"ChiliChill","url":"/Music/Audio/ChiliChill - Picnic On Monday.mp3","cover":"/Music/Cover/ChiliChill Cover.png","lrc":null},{"name":"A cup of coffee","artist":"ChiliChill","url":"/Music/Audio/ChiliChill - A cup of coffee.mp3","cover":"/Music/Cover/ChiliChill Cover.png","lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"},"mathjax":{"tags":"none","single_dollars":true,"cjk_width":0.9,"normal_width":0.6,"append_css":true,"every_page":false}},"version":"2.6.4","navbar":{"auto_hide":false,"color":{"left":"#d0b4e4","right":"#1e0094","transparency":80},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About Me":{"path":"/about","icon":"fa-regular fa-chart-bar"},"Links":{"icon":"fa-regular fa-user","submenus":{"Link Exchanges":"/links/","Gallery":"/masonry/","Github":"https://github.com/Archer-du"}}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":1,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"test","show_on_mobile":true,"links":{"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/3/15 19:19:10"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+    <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Archer&#39;s Blog
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [40,0],
+                translateZ: 0,
+                opacity: [0,1],
+                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i,
+            }).add({
+                targets: '.ml13 .letter',
+                translateY: [0,-40],
+                opacity: [1,0],
+                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i,
+                complete: function() {
+                    hidePreloader(); // Call hidePreloader after the animation completes
+                }
+            });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Archer&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    ABOUT ME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/links/">
+                                                    LINK EXCHANGES
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    GALLERY
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/Archer-du">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT ME
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/links/">LINK EXCHANGES</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">GALLERY</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/Archer-du">GITHUB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="/images/light.jpg" alt="CMake入门教程" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">CMake入门教程</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Archer阿澈</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-05-04 17:47:34</span>
+        <span class="mobile">2023-05-04 17:47:34</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-05-04 17:47:34</span>
+            <span class="mobile">2023-05-04 17:47:34</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Fundamentals/">Fundamentals</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/fundamentals/">fundamentals</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/tutorial/">tutorial</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/cmake/">cmake</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>CMake 是一个元构建系统（Meta-Build System）。作为一个适配器为使用不同平台环境和工具链的开发者提供了一套统一的构建规范，并且为C++项目的依赖管理和模块化带来了极大的便利。为了更熟练的构建C++工程，掌握CMake的基本用法是必须的，本文章主要介绍<strong>在Windows平台下使用Visual Studio工具链进行项目构建的方法</strong>。</p>
+<details class="gray" data-header-exclude=""><summary><i class="fa-solid fa-chevron-right"></i>元构建系统（Meta-Build System） </summary>
+              <div class="content">
+              <p>元构建系统是一种用于自动化生成构建文件（用于Makefile，ninja等build-system）的工具。</p><p>元构建系统（Meta-Build System）和构建系统（Build System）以及构建文件之间的关系：</p><ul><li><strong>元构建系统</strong>：生成其他构建系统的工具。本身不执行构建工作，而是从更高层次的抽象描述构建依赖关系，并转换为make等更底层的构建系统。元构建系统会屏蔽掉平台相关依赖，具有很好的跨平台特性。 </li><li><strong>构建系统</strong>：从源代码生成用户可以使用的目标文件的自动化工具。目标可以是库文件、可执行文件或者脚本等。构建系统通过构建文件定义编译规则，并调用工具链来编译代码。Make就是一个常见的构建系统。 </li><li><strong>构建文件</strong>：用于定义构建系统编译规则的脚本，包含如何编译和链接程序的规则以及文件之间的依赖关系。</li></ul>
+              </div>
+            </details>
+
+
+
+  <div class="note p-4 mb-4 rounded-small red xx">
+    <p>本教程假定你已经对C++的基础用法以及编译模型有一定了解，并非为C++初学者准备。</p>
+
+  </div>
+
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><blockquote>
+<p>教程中使用的开发环境。</p>
+</blockquote>
+<ul>
+<li>Win11</li>
+<li>Visual Studio 2022</li>
+<li>CMake 3.27.6</li>
+<li>Ninja</li>
+<li>Clang-cl/llvm</li>
+<li>C++ standard 17</li>
+</ul>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="1-构建可执行文件"><a href="#1-构建可执行文件" class="headerlink" title="1. 构建可执行文件"></a>1. 构建可执行文件</h3><p>先从VS2022创建一个空的CMake项目，简单修改目录格式如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">│  CMakeLists.txt</span><br><span class="line">│  CMakePresets.json</span><br><span class="line">├─bin</span><br><span class="line">├─include</span><br><span class="line">├─out</span><br><span class="line">└─source</span><br></pre></td></tr></table></figure></div>
+<p><code>CMakeLists.txt</code>和<code>CMakePresets.json</code>均为CMake项目模板自动生成，暂时先关注<code>CMakeLists.txt</code>中的内容，<code>CMakePresets.json</code>用于配置更顶层的环境参数，我们放到后面解释。</p>
+<p>现在我们开始编写简单的工程代码，假设此时我们想要设计一个数据结构，它的接口如下：<br><code>dsu.h</code>：</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dsu</span> {</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">dsu</span><span class="params">(<span class="type">size_t</span> size)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">unite</span><span class="params">(<span class="type">size_t</span> x, <span class="type">size_t</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">move</span><span class="params">(<span class="type">size_t</span> x, <span class="type">size_t</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">get_size</span><span class="params">(<span class="type">size_t</span> x)</span> </span>{ <span class="keyword">return</span> size_[<span class="built_in">find</span>(x)]; }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">connected</span><span class="params">(<span class="type">size_t</span> x, <span class="type">size_t</span> y)</span> </span>{ <span class="keyword">return</span> <span class="built_in">find</span>(x) == <span class="built_in">find</span>(y); }</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">size_t</span> <span class="title">find</span><span class="params">(<span class="type">size_t</span> x)</span> </span>{ <span class="keyword">return</span> pa_[x] == x ? x : pa_[x] = <span class="built_in">find</span>(pa_[x]); }</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::vector&lt;<span class="type">size_t</span>&gt; pa_;</span><br><span class="line">    std::vector&lt;<span class="type">size_t</span>&gt; size_;</span><br><span class="line">    std::vector&lt;<span class="type">size_t</span>&gt; sum_;</span><br><span class="line">};</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>它的实现在<code>dsu.cpp</code>中：<br><code>dsu.cpp</code>：</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"dsu/dsu.h"</span></span></span><br><span class="line"></span><br><span class="line">dsu::<span class="built_in">dsu</span>(<span class="type">size_t</span> size)</span><br><span class="line">    : <span class="built_in">pa_</span>(size * <span class="number">2</span>), <span class="built_in">size_</span>(size * <span class="number">2</span>, <span class="number">1</span>), <span class="built_in">sum_</span>(size * <span class="number">2</span>)</span><br><span class="line">{</span><br><span class="line">    <span class="built_in">iota</span>(pa_.<span class="built_in">begin</span>(), pa_.<span class="built_in">begin</span>() + size, size);</span><br><span class="line">    <span class="built_in">iota</span>(pa_.<span class="built_in">begin</span>() + size, pa_.<span class="built_in">end</span>(), size);</span><br><span class="line">    std::<span class="built_in">iota</span>(sum_.<span class="built_in">begin</span>() + size, sum_.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dsu::unite</span><span class="params">(<span class="type">size_t</span> x, <span class="type">size_t</span> y)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    x = <span class="built_in">find</span>(x);</span><br><span class="line">	y = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (x == y) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (size_[x] &lt; size_[y]) </span><br><span class="line">        std::<span class="built_in">swap</span>(x, y);</span><br><span class="line">    pa_[y] = x;</span><br><span class="line">    size_[x] += size_[y];</span><br><span class="line">    sum_[x] += sum_[y];</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dsu::move</span><span class="params">(<span class="type">size_t</span> x, <span class="type">size_t</span> y)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">auto</span> fx = <span class="built_in">find</span>(x);</span><br><span class="line">	<span class="keyword">auto</span> fy = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (fx == fy) <span class="keyword">return</span>;</span><br><span class="line">    pa_[x] = fy;</span><br><span class="line">    --size_[fx];</span><br><span class="line">	++size_[fy];</span><br><span class="line">    sum_[fx] -= x;</span><br><span class="line">	sum_[fy] += x;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>我们在<code>main.cpp</code>中使用这个工具:<br><code>main.cpp</code>：</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"dsu.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="function">dsu <span class="title">d</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line">	d.<span class="built_in">unite</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">	std::cout &lt;&lt; d.<span class="built_in">get_size</span>(<span class="number">2</span>) &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>目前的文件结构如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">│  CMakeLists.txt</span><br><span class="line">│  CMakePresets.json</span><br><span class="line">├─bin</span><br><span class="line">├─include</span><br><span class="line">	dsu.h</span><br><span class="line">├─out</span><br><span class="line">└─source</span><br><span class="line">    dsu.cpp</span><br><span class="line">    main.cpp</span><br></pre></td></tr></table></figure></div>
+
+<p>如何让<code>main.cpp</code>和<code>dsu.cpp</code>找到<code>dsu.h</code>并且生成一个可执行程序？对应的CMake代码如下：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>) <span class="comment"># 指定CMake版本下限</span></span><br><span class="line"><span class="keyword">project</span>(Utils) <span class="comment"># 将项目命名为Utils</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>) <span class="comment"># 设置C++标准为C++17</span></span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">${CMAKE_SOURCE_DIR}</span>/bin/)</span><br><span class="line"> <span class="comment"># 修改内置变量“可执行程序输出目录”的值</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">${CMAKE_SOURCE_DIR}</span>/<span class="keyword">include</span>) <span class="comment"># 指定头文件目录</span></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/source/*.cpp) <span class="comment"># 将source目录下的所有源文件存储为列表写入到SRC_LIST中。</span></span><br><span class="line"><span class="keyword">add_executable</span>(app <span class="variable">${SRC_LIST}</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>接下来详细解释涉及到的命令：</p>
+<ul>
+<li><p><code>cmake_minimum_required()</code>：用于指定CMake版本下限，是必须被调用的指令（<code>cmake_minimum_required()</code>必须在<code>project()</code>之前被调用）。</p>
+</li>
+<li><p><code>project()</code>：用于定义工程属性，是必须被调用的指令。完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">project</span>(&lt;工程名称&gt;</span><br><span class="line">       [VERSION &lt;major&gt;[.&lt;minor&gt;[.&lt;patch&gt;[.&lt;tweak&gt;]]]]</span><br><span class="line">       [DESCRIPTION &lt;描述&gt;]</span><br><span class="line">       [HOMEPAGE_URL &lt;主页URL&gt;]</span><br><span class="line">       [LANGUAGES &lt;支持语言&gt;...])</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>set()</code>：用于定义或修改CMake变量（包括用户创建变量和内置变量），完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(&lt;variable&gt; &lt;value&gt;... [PARENT_SCOPE] [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><code>&lt;variable&gt;</code>：要设置的变量名。</li>
+<li><code>&lt;value&gt;</code>：变量的值，可以是单个值或多个值（列表）。</li>
+<li><code>PARENT_SCOPE</code>：将变量值设置到<strong>父作用域</strong>（通常是调用 <code>add_subdirectory()</code> 的上层 <code>CMakeLists.txt</code>）。</li>
+<li><code>CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]</code>：将变量存入 CMake 缓存，使其可在 <code>ccmake</code> 或 <code>cmake-gui</code> 中修改。</li>
+</ul>
+</li>
+<li><p><code>include_directories()</code>：用于指定头文件搜索路径的命令，<strong>这一命令会影响后续构建的所有目标</strong>（针对单个目标的版本为<code>target_include_directories()</code>）。它会告诉编译器在哪些目录中查找 <code>#include</code> 指令引用的头文件。完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include_directories</span>([AFTER|BEFORE] [SYSTEM] &lt;目录&gt;...)</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>&lt;目录&gt;：头文件所在的路径，可以是绝对路径或相对路径。</li>
+<li>AFTER（默认）：把路径添加到系统默认搜索路径之后。</li>
+<li>BEFORE：把路径添加到系统默认搜索路径之前，优先查找。</li>
+<li>SYSTEM：标记目录为系统头文件目录，这样编译时不会针对这些目录的头文件生成警告。</li>
+</ul>
+</li>
+<li><p><code>file(GLOB) / file(GLOB_RECURSE)</code>：<code>file(GLOB)</code>用于获取匹配特定模式的文件列表并写入到指定变量，<code>file(GLOB_RECURSE)</code>则是的递归版本（<code>file()</code>函数还有很多用法，放在后面详细介绍）。完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">file</span>(GLOB/GLOB_RECURSE &lt;变量&gt; &lt;匹配模式&gt;)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>add_executable()</code>：用于创建可执行文件的命令，完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(&lt;目标名&gt; &lt;源文件<span class="number">1</span>&gt; &lt;源文件<span class="number">2</span>&gt; ... &lt;源文件N&gt;)</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="2-构建库文件"><a href="#2-构建库文件" class="headerlink" title="2. 构建库文件"></a>2. 构建库文件</h3><p>在工程中也时常会有制作库文件将项目模块化的需求，接下来介绍静态库和动态库的制作和使用方法。在本文的例子中，假设我们需要将<code>dsu</code>这个工具制作为库文件。<br>首先我们对项目结构稍加修改：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">│  CMakeLists.txt</span><br><span class="line">│  CMakePresets.json</span><br><span class="line">├─bin</span><br><span class="line">├─include</span><br><span class="line">│  └─dsu</span><br><span class="line">		dsu.h</span><br><span class="line">├─libs</span><br><span class="line">├─out</span><br><span class="line">└─source</span><br><span class="line">    ├─dsu</span><br><span class="line">        dsu.cpp</span><br><span class="line">    └─test</span><br><span class="line">        main.cpp</span><br></pre></td></tr></table></figure></div>
+<p>我们需要将source/dsu目录下的源文件编译到库文件，将source/test目录下的源文件编译为可执行文件。</p>
+<p>对于<strong>静态库</strong>，具体的CMake代码如下：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(Utils)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">${CMAKE_SOURCE_DIR}</span>/bin/)</span><br><span class="line"><span class="keyword">set</span>(LIBRARY_OUTPUT_PATH <span class="variable">${CMAKE_SOURCE_DIR}</span>/bin/) <span class="comment"># 设置库文件的输出路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">${CMAKE_SOURCE_DIR}</span>/<span class="keyword">include</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB DSU_SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/source/dsu/*.cpp)</span><br><span class="line"><span class="keyword">file</span>(GLOB TEST_SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/source/<span class="keyword">test</span>/*.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(dsu STATIC <span class="variable">${DSU_SRC_LIST}</span>) <span class="comment"># 创建静态库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> <span class="variable">${TEST_SRC_LIST}</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> PUBLIC dsu) <span class="comment"># 将库链接到可执行文件</span></span><br></pre></td></tr></table></figure></div>
+
+<p>对于<strong>动态库</strong>，具体的CMake代码如下：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(Utils)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(EXECUTABLE_OUTPUT_PATH <span class="variable">${CMAKE_SOURCE_DIR}</span>/bin/)</span><br><span class="line"><span class="keyword">set</span>(LIBRARY_OUTPUT_PATH <span class="variable">${CMAKE_SOURCE_DIR}</span>/bin/)</span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">${CMAKE_SOURCE_DIR}</span>/<span class="keyword">include</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB DSU_SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/source/dsu/*.cpp)</span><br><span class="line"><span class="keyword">file</span>(GLOB TEST_SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/source/<span class="keyword">test</span>/*.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(dsu SHARED <span class="variable">${DSU_SRC_LIST}</span>) <span class="comment"># 创建动态库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> <span class="variable">${TEST_SRC_LIST}</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> PUBLIC dsu)</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>由于Windows平台的特性，在本文的例子中，制作动态库时还需要将<code>dsu</code>的对应接口标记为<code>__declspec(dllexport)</code> / <code>__declspec(dllimport)</code>方能正常链接。</p>
+</blockquote>
+<p>接下来详细解释涉及到的命令：</p>
+<ul>
+<li><p><code>add_library()</code>：用于创建静态库或动态库，完整格式为：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(&lt;<span class="keyword">target</span>&gt; [STATIC | SHARED | MODULE | OBJECT] [EXCLUDE_FROM_ALL] &lt;source1&gt; [&lt;source2&gt; ...])</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><code>&lt;target&gt;</code>：库的名称，后续可以用 <code>target_link_libraries()</code> 进行链接。</li>
+<li><code>[STATIC | SHARED | MODULE | OBJECT]</code>：<ul>
+<li><code>STATIC</code>（默认）：生成 <code>.lib</code>（Windows）文件（静态库）。</li>
+<li><code>SHARED</code>：生成 <code>.dll</code>（Windows）文件（动态库）。</li>
+<li><code>MODULE</code>：生成插件库，类似 <code>SHARED</code>，但不会被默认链接。</li>
+<li><code>OBJECT</code>：生成对象文件 <code>.obj</code>，但不生成最终的 <code>.lib</code> 或 <code>.dll</code>。</li>
+</ul>
+</li>
+<li><code>[EXCLUDE_FROM_ALL]</code>：<ul>
+<li><strong>可选</strong>，如果添加该选项，则不会默认构建这个库，除非有其他目标显式依赖它。</li>
+</ul>
+</li>
+<li><code>&lt;source1&gt; [&lt;source2&gt; ...]</code>：<ul>
+<li>需要编译到库中的源文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>target_link_libraries()</code>：用于为一个目标（CMake中的target指的是可执行文件或库文件）指定它依赖的库。这个指令会影响链接阶段，确保目标能够正确地找到并使用指定的库。其完整格式如下：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(&lt;<span class="keyword">target</span>&gt; [&lt;mode&gt;] &lt;library&gt; [&lt;library&gt;...])</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><code>&lt;target&gt;</code>：要链接库的目标（可执行文件或库）。</li>
+<li><code>&lt;mode&gt;</code>（可选）：指定链接的可见性，可选值为 <code>PRIVATE</code>、<code>PUBLIC</code> 和 <code>INTERFACE</code>。</li>
+<li><code>&lt;library&gt;</code>：要链接的库，可以是已有的 CMake 目标、外部库文件、系统库等。<br>  其中可见性会影响模块的依赖传递和封装性，具体情况放在后面进行详细讨论。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-多目标构建"><a href="#3-多目标构建" class="headerlink" title="3.多目标构建"></a>3.多目标构建</h3><p>一个大型项目中会有很多库文件和可执行文件，这些目标通常作为独立模块在项目中复用，并且分散在不同的源码目录中。如果继续在同一个<code>CMakeLists.txt</code>中处理所有目标的构建，则无法满足项目的模块化需求，<code>CMake</code>提供了嵌套<code>CMake</code>的方法来方便的处理这种情况。<br>对项目结构进行修改：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">│  CMakeLists.txt</span><br><span class="line">│  CMakePresets.json</span><br><span class="line">├─bin</span><br><span class="line">├─include</span><br><span class="line">│  ├─algorithm</span><br><span class="line">		algorithm.h</span><br><span class="line">│  └─dsu</span><br><span class="line">		dsu.h</span><br><span class="line">├─out</span><br><span class="line">└─source</span><br><span class="line">    ├─algorithm</span><br><span class="line">		CMakeLists.txt</span><br><span class="line">		connected_comps.cpp</span><br><span class="line">		kruskal.cpp</span><br><span class="line">    ├─dsu</span><br><span class="line">		CMakeLists.txt</span><br><span class="line">		dsu.cpp</span><br><span class="line">    └─test</span><br><span class="line">		CMakeLists.txt</span><br><span class="line">		test1.cpp</span><br><span class="line">		test2.cpp</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>项目需求：利用<code>dsu</code>模块实现<code>algorithm</code>模块中的两个算法，并完成<code>test</code>模块中的两个testbench。</li>
+<li>构建需求：将<code>dsu</code>模块构建为动态库，<code>algorithm</code>模块构建为静态库，<code>test</code>模块每个源文件单独构建为可执行程序。<br>根目录下的<code>CMakeLists.txt</code>中的代码非常简单：<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"><span class="keyword">project</span>(Utils)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意此处使用的是include_directories &amp; link_directories，因为本文例子中所有目标使用的头文件路径和库链接路径是相同的。如果不同目标使用的路径不同，则需要使用target_include_directories &amp; link_directories</span></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">${CMAKE_SOURCE_DIR}</span>/<span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">${CMAKE_SOURCE_DIR}</span>/bin)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加CMake子目录</span></span><br><span class="line"><span class="keyword">add_subdirectory</span>(source/dsu)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(source/algorithm)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(source/<span class="keyword">test</span>)</span><br></pre></td></tr></table></figure></div>
+其中，<code>add_subdirectory()</code> 命令主要用于在 CMake 构建系统中添加子目录，并处理该目录下的 <code>CMakeLists.txt</code> 文件。是 CMake 工程组织多个模块，实现代码复用的关键命令。<br>其完整格式为：<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_subdirectory</span>(&lt;source_dir&gt; [binary_dir] [EXCLUDE_FROM_ALL])</span><br></pre></td></tr></table></figure></div></li>
+<li><code>&lt;source_dir&gt;</code>：<strong>必填</strong>，指定子目录的源代码路径，该目录必须包含 <code>CMakeLists.txt</code>。</li>
+<li><code>[binary_dir]</code>：可选，指定子目录的构建目录（默认使用 <code>CMake</code> 指定的 <code>build</code> 目录）。</li>
+<li><code>[EXCLUDE_FROM_ALL]</code>：可选，如果指定，则该目录的构建不会包含在 <code>all</code> 目标中，只有手动构建时才会编译。</li>
+</ul>
+<p>关于子目录的处理方式有一些特性：</p>
+<ul>
+<li><strong>递归解析 CMakeLists.txt</strong>：进入子目录后，会解析该目录的 <code>CMakeLists.txt</code>。</li>
+<li><strong>继承变量作用域</strong>：默认情况下，父 <code>CMakeLists.txt</code> 中定义的变量对子目录可见（但子目录修改的变量不会影响父目录，除非使用 <code>PARENT_SCOPE</code>）。</li>
+<li><strong>继承 <code>include_directories()</code>、<code>link_directories()</code> 等</strong>：父目录设置的 <code>include_directories()</code> 也适用于子目录。</li>
+</ul>
+<p>至于各个子目录中的 <code>CMakeLists.txt</code> 文件，读者可以先尝试自行编写，此处列出一种编写方式：</p>
+<ul>
+<li><code>source/dsu</code><div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"><span class="keyword">project</span>(Dsu)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/*.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(dsu SHARED <span class="variable">${SRC_LIST}</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set_target_properties</span>(dsu PROPERTIES LIBRARY_OUTPUT_DIRECTORY <span class="string">"${CMAKE_SOURCE_DIR}/bin"</span>)</span><br></pre></td></tr></table></figure></div></li>
+<li><code>source/algorithm</code><div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"><span class="keyword">project</span>(Algorithm)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB SRC_LIST <span class="variable">${CMAKE_CURRENT_SOURCE_DIR}</span>/*.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(algorithm STATIC <span class="variable">${SRC_LIST}</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set_target_properties</span>(algorithm PROPERTIES LIBRARY_OUTPUT_DIRECTORY <span class="string">"${CMAKE_SOURCE_DIR}/bin"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(algorithm PUBLIC dsu)</span><br></pre></td></tr></table></figure></div></li>
+<li><code>source/test</code><div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.27</span>.<span class="number">6</span>)</span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">Test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(test1 test1.cpp)</span><br><span class="line"><span class="keyword">set_target_properties</span>(test1 PROPERTIES RUNTIME_OUTPUT_DIRECTORY <span class="string">"${CMAKE_SOURCE_DIR}/bin"</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test1 PUBLIC dsu)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(test2 test2.cpp)</span><br><span class="line"><span class="keyword">set_target_properties</span>(test2 PROPERTIES RUNTIME_OUTPUT_DIRECTORY <span class="string">"${CMAKE_SOURCE_DIR}/bin"</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(test2 PUBLIC algorithm)</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<blockquote>
+<p>上面的实现使用了<code>set_target_properties()</code>命令，针对单一目标的属性（如库文件或可执行文件的输出路径）进行修改，而不是使用<code>set()</code>命令对这些属性进行全局范围的设置。对于实际的大型项目来说，使用前者更加合理；对于本文例子来说，两者并无差别。</p>
+</blockquote>
+<h3 id="4-构建流程控制-TODO"><a href="#4-构建流程控制-TODO" class="headerlink" title="4. 构建流程控制 TODO:"></a>4. 构建流程控制 TODO:</h3><h4 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h4><p>CMake 提供了 <code>if()</code> 语句来执行条件分支。</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">elseif</span> (condition)</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(VALUE <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (VALUE <span class="keyword">GREATER</span> <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"VALUE 大于 5"</span>)</span><br><span class="line"><span class="keyword">elseif</span> (VALUE <span class="keyword">EQUAL</span> <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"VALUE 等于 5"</span>)</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"VALUE 小于 5"</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VALUE 大于 5</span><br></pre></td></tr></table></figure></div>
+
+<table>
+<thead>
+<tr>
+<th><strong>条件</strong></th>
+<th><strong>作用</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数值比较</strong></td>
+<td>进行数值大小判断</td>
+<td><code>if (VALUE GREATER 5)</code></td>
+</tr>
+<tr>
+<td><strong>字符串比较</strong></td>
+<td>判断字符串是否相等</td>
+<td><code>if ("Hello" STREQUAL "World")</code></td>
+</tr>
+<tr>
+<td><strong>变量是否定义</strong></td>
+<td>检查变量是否存在</td>
+<td><code>if (DEFINED MY_VAR)</code></td>
+</tr>
+<tr>
+<td><strong>布尔值判断</strong></td>
+<td>检查变量的真假</td>
+<td><code>if (MY_FLAG)</code></td>
+</tr>
+<tr>
+<td><strong>文件/目录存在性</strong></td>
+<td>判断文件或目录是否存在</td>
+<td><code>if (EXISTS "path/to/file")</code></td>
+</tr>
+<tr>
+<td><strong>环境变量</strong></td>
+<td>检查环境变量是否存在</td>
+<td><code>if (ENV{HOME})</code></td>
+</tr>
+<tr>
+<td><strong>逻辑运算</strong></td>
+<td>结合多个条件</td>
+<td><code>if (A AND B)</code>, <code>if (C OR D)</code></td>
+</tr>
+</tbody></table>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><ul>
+<li><code>foreach()</code><br>用于遍历列表或范围。</li>
+</ul>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(variable RANGE start stop [step])</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(variable IN LISTS list_name)</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(variable item1 item2 item3 ...)</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(NAMES Alice Bob Charlie)</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(NAME IN LISTS NAMES)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Hello, ${NAME}!"</span>)</span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hello, Alice!</span><br><span class="line">Hello, Bob!</span><br><span class="line">Hello, Charlie!</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(I RANGE <span class="number">1</span> <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Value: ${I}"</span>)</span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Value: 1</span><br><span class="line">Value: 2</span><br><span class="line">Value: 3</span><br><span class="line">Value: 4</span><br><span class="line">Value: 5</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(I RANGE <span class="number">1</span> <span class="number">10</span> <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Step: ${I}"</span>)</span><br><span class="line"><span class="keyword">endforeach</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Step: 1</span><br><span class="line">Step: 3</span><br><span class="line">Step: 5</span><br><span class="line">Step: 7</span><br><span class="line">Step: 9</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><code>while()</code><br>用于执行<strong>条件满足时</strong>的循环，适用于动态控制流。</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition)</span><br><span class="line">    <span class="comment"># 代码块</span></span><br><span class="line"><span class="keyword">endwhile</span>()</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(COUNT <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (COUNT <span class="keyword">LESS</span> <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"COUNT = ${COUNT}"</span>)</span><br><span class="line">    <span class="keyword">math</span>(EXPR COUNT <span class="string">"${COUNT} + 1"</span>)</span><br><span class="line"><span class="keyword">endwhile</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">COUNT = 0</span><br><span class="line">COUNT = 1</span><br><span class="line">COUNT = 2</span><br><span class="line">COUNT = 3</span><br><span class="line">COUNT = 4</span><br></pre></td></tr></table></figure></div>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(<span class="keyword">LIST</span> A B C D E)</span><br><span class="line"><span class="keyword">set</span>(INDEX <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (INDEX <span class="keyword">LESS</span> <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">list</span>(GET <span class="keyword">LIST</span> <span class="variable">${INDEX}</span> ITEM)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Item ${INDEX}: ${ITEM}"</span>)</span><br><span class="line">    <span class="keyword">math</span>(EXPR INDEX <span class="string">"${INDEX} + 1"</span>)</span><br><span class="line"><span class="keyword">endwhile</span>()</span><br></pre></td></tr></table></figure></div>
+<p>输出：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Item 0: A</span><br><span class="line">Item 1: B</span><br><span class="line">Item 2: C</span><br><span class="line">Item 3: D</span><br><span class="line">Item 4: E</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>break()</code> 和 <code>continue()</code><br>用于控制循环流程。</p>
+</li>
+<li><p><code>break()</code>：立即终止循环。</p>
+</li>
+<li><p><code>continue()</code>：跳过当前迭代，进入下一次循环。</p>
+</li>
+</ul>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li><strong>跨平台编译</strong></li>
+</ul>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (CMAKE_SYSTEM_NAME <span class="keyword">STREQUAL</span> <span class="string">"Windows"</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Building for Windows"</span>)</span><br><span class="line"><span class="keyword">elseif</span> (CMAKE_SYSTEM_NAME <span class="keyword">STREQUAL</span> <span class="string">"Linux"</span>)</span><br><span class="line">    <span class="keyword">message</span>(<span class="string">"Building for Linux"</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>根据用户选项启用功能</strong></li>
+</ul>
+<div class="highlight-container" data-rel="Cmake"><figure class="iseeu highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">option</span>(ENABLE_TESTS <span class="string">"Enable testing"</span> <span class="keyword">OFF</span>)</span><br><span class="line"><span class="keyword">if</span> (ENABLE_TESTS)</span><br><span class="line">    <span class="keyword">enable_testing</span>()</span><br><span class="line">    <span class="keyword">add_subdirectory</span>(tests)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="5-外部模块管理-TODO"><a href="#5-外部模块管理-TODO" class="headerlink" title="5. 外部模块管理 TODO:"></a>5. 外部模块管理 TODO:</h3><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><h3 id="的使用-TODO"><a href="#的使用-TODO" class="headerlink" title="${}的使用 TODO:"></a>${}的使用 TODO:</h3><table>
+<thead>
+<tr>
+<th><strong>场景</strong></th>
+<th><strong>是否需要 <code>${}</code></strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>变量赋值</td>
+<td>否</td>
+<td><code>set(VAR "Hello")</code></td>
+</tr>
+<tr>
+<td>变量访问</td>
+<td>是</td>
+<td><code>message(${VAR})</code></td>
+</tr>
+<tr>
+<td><code>if()</code> 判断</td>
+<td>否</td>
+<td><code>if(VAR)</code></td>
+</tr>
+<tr>
+<td>作为命令参数</td>
+<td>是</td>
+<td><code>project(${VAR})</code></td>
+</tr>
+<tr>
+<td>访问环境变量</td>
+<td>是</td>
+<td><code>message($ENV{HOME})</code></td>
+</tr>
+<tr>
+<td><code>foreach()</code> 遍历列表</td>
+<td>否（遍历变量名）</td>
+<td><code>foreach(ITEM IN LISTS VAR)</code></td>
+</tr>
+<tr>
+<td><code>unset()</code> 删除变量</td>
+<td>否</td>
+<td><code>unset(VAR)</code></td>
+</tr>
+</tbody></table>
+<h3 id="常用内置变量和宏-TODO"><a href="#常用内置变量和宏-TODO" class="headerlink" title="常用内置变量和宏 TODO:"></a>常用内置变量和宏 TODO:</h3><p><strong>1. 项目和构建相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_SOURCE_DIR</code></td>
+<td>项目源代码的根目录（顶层 <code>CMakeLists.txt</code> 所在目录）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_BINARY_DIR</code></td>
+<td>项目的构建目录（<code>cmake</code> 执行的目录）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CURRENT_SOURCE_DIR</code></td>
+<td>当前处理的 <code>CMakeLists.txt</code> 文件所在的源目录。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CURRENT_BINARY_DIR</code></td>
+<td>当前处理的 <code>CMakeLists.txt</code> 对应的二进制目录。</td>
+</tr>
+<tr>
+<td><code>PROJECT_NAME</code></td>
+<td><code>project()</code> 命令定义的项目名称。</td>
+</tr>
+<tr>
+<td><code>CMAKE_PROJECT_NAME</code></td>
+<td>根 <code>CMakeLists.txt</code> 定义的项目名称（最顶层项目）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_VERSION</code></td>
+<td>CMake 的版本号，例如 <code>3.26.0</code>。</td>
+</tr>
+</tbody></table>
+<p><strong>2. CMake 目录和文件相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_MODULE_PATH</code></td>
+<td>指定 CMake 额外的模块搜索路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_COMMAND</code></td>
+<td>CMake 执行命令的完整路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CURRENT_LIST_FILE</code></td>
+<td>当前正在处理的 CMake 文件路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CURRENT_LIST_DIR</code></td>
+<td>当前 CMake 文件所在的目录。</td>
+</tr>
+</tbody></table>
+<p><strong>3. 编译器和编译相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_C_COMPILER</code></td>
+<td>C 语言编译器路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CXX_COMPILER</code></td>
+<td>C++ 编译器路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_C_FLAGS</code></td>
+<td>C 语言编译时的默认标志。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CXX_FLAGS</code></td>
+<td>C++ 编译时的默认标志。</td>
+</tr>
+<tr>
+<td><code>CMAKE_BUILD_TYPE</code></td>
+<td>指定构建类型（<code>Debug</code>、<code>Release</code>、<code>RelWithDebInfo</code>、<code>MinSizeRel</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_C_STANDARD</code></td>
+<td>指定 C 语言标准（如 <code>99</code>、<code>11</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_CXX_STANDARD</code></td>
+<td>指定 C++ 语言标准（如 <code>11</code>、<code>14</code>、<code>17</code>、<code>20</code>）。</td>
+</tr>
+</tbody></table>
+<p><strong>4. 链接和库相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_LINKER</code></td>
+<td>链接器的路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_EXE_LINKER_FLAGS</code></td>
+<td>生成可执行文件时的链接选项。</td>
+</tr>
+<tr>
+<td><code>CMAKE_SHARED_LINKER_FLAGS</code></td>
+<td>生成动态库时的链接选项。</td>
+</tr>
+<tr>
+<td><code>CMAKE_STATIC_LINKER_FLAGS</code></td>
+<td>生成静态库时的链接选项。</td>
+</tr>
+<tr>
+<td><code>CMAKE_LIBRARY_OUTPUT_DIRECTORY</code></td>
+<td>目标库文件的输出目录。</td>
+</tr>
+<tr>
+<td><code>CMAKE_ARCHIVE_OUTPUT_DIRECTORY</code></td>
+<td>静态库的输出目录。</td>
+</tr>
+</tbody></table>
+<p><strong>5. 目标平台相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_SYSTEM_NAME</code></td>
+<td>目标操作系统名称（如 <code>Windows</code>、<code>Linux</code>、<code>Darwin</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_SYSTEM_VERSION</code></td>
+<td>目标操作系统的版本。</td>
+</tr>
+<tr>
+<td><code>CMAKE_HOST_SYSTEM_NAME</code></td>
+<td>CMake 运行的主机操作系统名称。</td>
+</tr>
+<tr>
+<td><code>CMAKE_HOST_SYSTEM_VERSION</code></td>
+<td>CMake 运行的主机操作系统版本。</td>
+</tr>
+<tr>
+<td><code>CMAKE_SIZEOF_VOID_P</code></td>
+<td>指针的字节大小（可用于判断 32 位或 64 位）。</td>
+</tr>
+</tbody></table>
+<p><strong>6. 生成器相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_GENERATOR</code></td>
+<td>指定的 CMake 生成器（如 <code>Ninja</code>、<code>Unix Makefiles</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_MAKE_PROGRAM</code></td>
+<td><code>make</code> 命令路径（仅适用于 <code>Makefile</code> 生成器）。</td>
+</tr>
+</tbody></table>
+<p><strong>7. 安装相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CMAKE_INSTALL_PREFIX</code></td>
+<td><code>install()</code> 指定的默认安装路径。</td>
+</tr>
+<tr>
+<td><code>CMAKE_INSTALL_BINDIR</code></td>
+<td>可执行文件的安装目录（默认 <code>bin/</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_INSTALL_LIBDIR</code></td>
+<td>库文件的安装目录（默认 <code>lib/</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_INSTALL_INCLUDEDIR</code></td>
+<td>头文件的安装目录（默认 <code>include/</code>）。</td>
+</tr>
+</tbody></table>
+<p><strong>8. 测试和构建系统相关变量</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>变量名</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BUILD_SHARED_LIBS</code></td>
+<td>是否默认构建动态库（<code>ON</code>/<code>OFF</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_VERBOSE_MAKEFILE</code></td>
+<td>是否打印详细的 <code>Makefile</code> 过程（<code>ON</code>/<code>OFF</code>）。</td>
+</tr>
+<tr>
+<td><code>CMAKE_EXPORT_COMPILE_COMMANDS</code></td>
+<td>是否生成 <code>compile_commands.json</code>（用于 Clangd 等工具）。</td>
+</tr>
+</tbody></table>
+<h3 id="file-的常见操作-TODO"><a href="#file-的常见操作-TODO" class="headerlink" title="file() 的常见操作 TODO:"></a><code>file()</code> 的常见操作 TODO:</h3><table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th><strong>功能</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GLOB</code></td>
+<td>查找符合特定模式的文件</td>
+</tr>
+<tr>
+<td><code>GLOB_RECURSE</code></td>
+<td>递归查找符合模式的文件</td>
+</tr>
+<tr>
+<td><code>WRITE</code></td>
+<td>创建并写入文件</td>
+</tr>
+<tr>
+<td><code>APPEND</code></td>
+<td>追加内容到文件</td>
+</tr>
+<tr>
+<td><code>READ</code></td>
+<td>读取文件内容</td>
+</tr>
+<tr>
+<td><code>COPY</code></td>
+<td>复制文件或目录</td>
+</tr>
+<tr>
+<td><code>REMOVE</code></td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td><code>REMOVE_RECURSE</code></td>
+<td>递归删除文件夹及其内容</td>
+</tr>
+<tr>
+<td><code>RENAME</code></td>
+<td>重命名文件或目录</td>
+</tr>
+<tr>
+<td><code>MAKE_DIRECTORY</code></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td><code>SIZE</code></td>
+<td>获取文件大小</td>
+</tr>
+<tr>
+<td><code>SHA256</code></td>
+<td>计算文件 SHA256 哈希值</td>
+</tr>
+<tr>
+<td><code>STRINGS</code></td>
+<td>从文件中提取文本</td>
+</tr>
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td>获取文件时间戳</td>
+</tr>
+</tbody></table>
+<h3 id="CMake预设"><a href="#CMake预设" class="headerlink" title="CMake预设"></a>CMake预设</h3><p>CMakePresets.json文件定义了一系列的CMake预设信息，包括跨平台配置，编译器和生成器配置等。下面是是一个简单的CMakePresets.json样例以及对每个条目的解释：</p>
+<div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"version"</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"configurePresets"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"windows-base"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"hidden"</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"generator"</span><span class="punctuation">:</span> <span class="string">"Ninja"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"binaryDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/build/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"installDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/install/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cacheVariables"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"CMAKE_C_COMPILER"</span><span class="punctuation">:</span> <span class="string">"clang-cl.exe"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"CMAKE_CXX_COMPILER"</span><span class="punctuation">:</span> <span class="string">"clang-cl.exe"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"condition"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"equals"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"lhs"</span><span class="punctuation">:</span> <span class="string">"${hostSystemName}"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"rhs"</span><span class="punctuation">:</span> <span class="string">"Windows"</span></span><br><span class="line">            <span class="punctuation">}</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"x64-debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"displayName"</span><span class="punctuation">:</span> <span class="string">"x64 Debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"inherits"</span><span class="punctuation">:</span> <span class="string">"windows-base"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"architecture"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"value"</span><span class="punctuation">:</span> <span class="string">"x64"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"strategy"</span><span class="punctuation">:</span> <span class="string">"external"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cacheVariables"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"CMAKE_BUILD_TYPE"</span><span class="punctuation">:</span> <span class="string">"Debug"</span></span><br><span class="line">            <span class="punctuation">}</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"x64-release"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"displayName"</span><span class="punctuation">:</span> <span class="string">"x64 Release"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"inherits"</span><span class="punctuation">:</span> <span class="string">"x64-debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cacheVariables"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"CMAKE_BUILD_TYPE"</span><span class="punctuation">:</span> <span class="string">"Release"</span></span><br><span class="line">            <span class="punctuation">}</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"linux-debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"displayName"</span><span class="punctuation">:</span> <span class="string">"Linux Debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"generator"</span><span class="punctuation">:</span> <span class="string">"Ninja"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"binaryDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/build/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"installDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/install/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cacheVariables"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"CMAKE_BUILD_TYPE"</span><span class="punctuation">:</span> <span class="string">"Debug"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"condition"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"equals"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"lhs"</span><span class="punctuation">:</span> <span class="string">"${hostSystemName}"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"rhs"</span><span class="punctuation">:</span> <span class="string">"Linux"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"vendor"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"microsoft.com/VisualStudioRemoteSettings/CMake/1.0"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                    <span class="attr">"sourceDir"</span><span class="punctuation">:</span> <span class="string">"$env{HOME}/.vs/$ms{projectDirName}"</span></span><br><span class="line">                <span class="punctuation">}</span></span><br><span class="line">            <span class="punctuation">}</span></span><br><span class="line">        <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"macos-debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"displayName"</span><span class="punctuation">:</span> <span class="string">"macOS Debug"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"generator"</span><span class="punctuation">:</span> <span class="string">"Ninja"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"binaryDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/build/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"installDir"</span><span class="punctuation">:</span> <span class="string">"${sourceDir}/out/install/${presetName}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cacheVariables"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"CMAKE_BUILD_TYPE"</span><span class="punctuation">:</span> <span class="string">"Debug"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"condition"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"equals"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"lhs"</span><span class="punctuation">:</span> <span class="string">"${hostSystemName}"</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">"rhs"</span><span class="punctuation">:</span> <span class="string">"Darwin"</span></span><br><span class="line">            <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"vendor"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                <span class="attr">"microsoft.com/VisualStudioRemoteSettings/CMake/1.0"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                    <span class="attr">"sourceDir"</span><span class="punctuation">:</span> <span class="string">"$env{HOME}/.vs/$ms{projectDirName}"</span></span><br><span class="line">                <span class="punctuation">}</span></span><br><span class="line">            <span class="punctuation">}</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">}</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<ul>
+<li>windows-base：这是一个基础预设，被标记为隐藏（”hidden”: true），意味着它只可以被其他预设继承。它设置了Ninja生成器，指定了二进制和安装目录，并设置了C和C++编译器为cl.exe。此预设仅在平台为Windows时应用。</li>
+<li>x64-debug 和 x64-release：这两个预设继承自windows-base，分别用于64位的Debug和Release构建。它们设置了体系结构为x64，并分别设置了CMake构建类型为Debug和Release。</li>
+<li>linux-debug：这个预设专门用于Linux平台的Debug构建。它设置了Ninja生成器，指定了二进制和安装目录，并设置了构建类型为Debug。此预设仅在平台为Linux时应用。</li>
+<li>macos-debug：这个预设专门用于macOS平台的Debug构建。配置方法与linux-debug类似。</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> CMake入门教程</li>
+        <li><strong>Author:</strong> Archer阿澈</li>
+        <li><strong>Created at
+                :</strong> 2023-05-04 17:47:34</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2023-05-04 17:47:34
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://www.archer-du.top/2023/05/04/Tech/Fundamentals/CMake_Tutorial/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/fundamentals/">#fundamentals</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/tutorial/">#tutorial</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/cmake/">#cmake</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/09/20/Tech/ComputerGraphics/Render_Pipeline/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">图形学—渲染管线简介</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '6611a1db2d9f4eef5da0',
+                    clientSecret: 'b5270ab65ab241ea062e3e13dd06db251c79701b',
+                    repo: 'gitalk',
+                    owner: 'Archer-du',
+                    admin: ['Archer-du'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">CMake入门教程</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="nav-text">基础用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-text">1. 构建可执行文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9E%84%E5%BB%BA%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-text">2. 构建库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%9E%84%E5%BB%BA"><span class="nav-text">3.多目标构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6-TODO"><span class="nav-text">4. 构建流程控制 TODO:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="nav-text">条件判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-text">循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%A4%96%E9%83%A8%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86-TODO"><span class="nav-text">5. 外部模块管理 TODO:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-text">提示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9A%84%E4%BD%BF%E7%94%A8-TODO"><span class="nav-text">${}的使用 TODO:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E5%AE%8F-TODO"><span class="nav-text">常用内置变量和宏 TODO:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C-TODO"><span class="nav-text">file() 的常见操作 TODO:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMake%E9%A2%84%E8%AE%BE"><span class="nav-text">CMake预设</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Archer阿澈</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        4 posts in total
+                    </span>
+                    
+                        <span>
+                            12.9k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/libs/mermaid.min.js"></script>
+
+    
+<script src="/js/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+    <div id="aplayer"></div>
+
+<script src="/js/libs/APlayer.min.js"></script>
+
+
+<script src="/js/plugins/aplayer.js"></script>
+
+
+</body>
+</html>
